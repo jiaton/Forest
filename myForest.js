@@ -23,7 +23,7 @@ while (!className("android.widget.TextView").text("蚂蚁森林").exists()) {
 }
 toast("进入蚂蚁森林");
 click("蚂蚁森林");
-while (!desc("道具").findOnce()) {
+while (!desc("种树").findOnce()) {
     sleep(500);
 }
 //获取当前能量 新版本没有ID故不可用
@@ -94,12 +94,12 @@ function EnterAndCollect(x, y) {
     sleep(100);
     click(x, y);
     sleep(300)
-    descContains("浇水").findOne(3000);
-    if (!desc("浇水").exists()) {
+    descContains("大树养成").findOne(3000);
+    if (!desc("大树养成").exists()) {
         sleep(1000);
         click(x, y); //再次点击
     }
-    descContains("浇水").findOne();
+    descContains("大树养成记录").findOne();
     log("成功打开收取页面");
     sleep(1000); //等待能量球加载
     {
