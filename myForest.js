@@ -23,30 +23,30 @@ while (!className("android.widget.TextView").text("蚂蚁森林").exists()) {
 }
 toast("进入蚂蚁森林");
 click("蚂蚁森林");
-while (!desc("种树").findOnce()) {
+while (!text("种树").findOnce()) {
     sleep(500);
 }
 //获取当前能量 新版本没有ID故不可用
-// var amountOfE1 = idContains("tree_energy").findOne().desc();
+// var amountOfE1 = idContains("tree_energy").findOne().text();
 
 // 收集自己能量
 log("收集自己能量")
 sleep(1000) //能量球生成需要一秒钟时间
-while (descStartsWith("收集能量").exists()) {
-    var p = descStartsWith("收集能量").findOne().bounds();
+while (textStartsWith("收集能量").exists()) {
+    var p = textStartsWith("收集能量").findOne().bounds();
     click(p.centerX(), p.centerY());
     sleep(1000);
     click(p.centerX(), p.centerY());
 };
 // 下滑打开好友列表
-while (!desc("查看更多好友").exists()) {
+while (!text("查看更多好友").exists()) {
     scrollDown();
     sleep(500);
 }
 
-while (!desc("查看更多好友").findOne().click());
+while (!text("查看更多好友").findOne().click());
 // 等待直到加载完毕再进行下面的操作，不然会出现截图截错的问题
-while (descContains("个环保证书").exists());
+while (textContains("个环保证书").exists());
 sleep(1500);
 collectInRanklistNew();
 
@@ -56,8 +56,8 @@ if (time()) {
         log("时间判断符合");
         //先返回再重新进入
         back();
-        while (!desc("查看更多好友").findOne().click());
-        collectInRanklist();
+        while (!text("查看更多好友").findOne().click());
+        collectInRanklistNew();
     }   
 }else{
     log("时间不符合")
@@ -67,7 +67,7 @@ if (time()) {
 toast("收取完成");
 back(); //先返回到个人界面获取能量数目
 //获取当前能量 新版本没有ID 故不可用
-// var amountOfE2 = idContains("tree_energy").findOne().desc();
+// var amountOfE2 = idContains("tree_energy").findOne().text();
 // var amountReg = /.*(?=g)/;
 // amountOfE1 = amountOfE1.match(amountReg);
 // amountOfE2 = amountOfE2.match(amountReg);
@@ -94,21 +94,21 @@ function EnterAndCollect(x, y) {
     sleep(100);
     click(x, y);
     sleep(300)
-    descContains("大树养成").findOne(3000);
-    if (!desc("大树养成").exists()) {
+    textContains("大树养成").findOne(3000);
+    if (!text("大树养成").exists()) {
         sleep(1000);
         click(x, y); //再次点击
     }
-    descContains("大树养成记录").findOne();
+    textContains("大树养成记录").findOne();
     log("成功打开收取页面");
     sleep(1000); //等待能量球加载
     {
         let i=0;
-        while (descStartsWith("收集能量").exists()) {
+        while (textStartsWith("收集能量").exists()) {
             log("点击能量球")
             sleep(200);
             var barr = new Array();
-            var bs = descStartsWith("收集能量").find().forEach(function(b) {
+            var bs = textStartsWith("收集能量").find().forEach(function(b) {
                 barr.push(b.bounds());
             })
             for (let i = 0; i < barr.length; i++) {
@@ -139,7 +139,7 @@ function time() {
 
 //改进方法
 function collectInRanklistNew() {
-    while (!descContains("没有更多了").exists()) {
+    while (!textContains("没有更多了").exists()) {
         sleep(200); //延时以防止截图错误
         var img = captureScreen();
         var x = width - 5;
@@ -172,7 +172,7 @@ function collectInRanklistNew() {
         }
 
 
-        while (!descContains("kg").exists()) {
+        while (!textContains("kg").exists()) {
             sleep(100);
         }
         scrollDown();
@@ -181,7 +181,7 @@ function collectInRanklistNew() {
 
 //在排行榜中收取方法(旧)
 function collectInRanklist() {
-    while (!descContains("没有更多了").exists()) {
+    while (!textContains("没有更多了").exists()) {
         sleep(200); //延时以防止截图错误
         var img = captureScreen();
         var x = width - 5;
@@ -225,7 +225,7 @@ function collectInRanklist() {
             EnterAndCollect(width / 2, selectedArr[j] + 10)
         }
 
-        while (!descContains("kg").exists()) {
+        while (!textContains("kg").exists()) {
             sleep(100);
         }
         scrollDown();
